@@ -2,7 +2,13 @@
 <div *ngIf="categories$ | async as categories">
   <div class="flex">
     <div class="my-auto">
-      <button type="button" color="primary" mat-raised-button>
+      <button
+        title="Add category"
+        type="button"
+        color="primary"
+        mat-raised-button
+        (click)="onActionTriggered({ type: actionType.CREATE, payload: null })"
+      >
         Add New Category
       </button>
     </div>
@@ -11,7 +17,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Search</mat-label>
-      <input matInput placeholder="Search" />
+      <input matInput placeholder="Search" [formControl]="searchControl" />
       <!-- <mat-hint>Hint</mat-hint> -->
     </mat-form-field>
   </div>

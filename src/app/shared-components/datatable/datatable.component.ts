@@ -45,7 +45,7 @@ export class DatatableComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnChanges(changes: any): void {
     this.data.data = this.dataSource ?? [];
-    this.data.sort = this.sort;
+    // this.data.sort = this.sort;
   }
 
   ngOnInit(): void {

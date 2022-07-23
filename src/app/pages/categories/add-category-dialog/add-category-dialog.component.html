@@ -1,0 +1,18 @@
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+  <h1 mat-dialog-title>{{ title }}</h1>
+
+  <div class="flex flex-col" mat-dialog-content>
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Category Title</mat-label>
+      <input formControlName="title" matInput placeholder="title" />
+      <mat-error *ngIf="form.controls['title']">Errors have occured</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions>
+    <button type="submit" mat-button mat-dialog-close [disabled]="!form.valid">
+      {{ submitText }}
+    </button>
+    <button type="button" mat-button mat-dialog-close>Cancel</button>
+  </div>
+</form>
