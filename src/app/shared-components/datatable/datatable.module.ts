@@ -10,6 +10,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { OrderNumberModule } from 'src/app/common/pipe/order-number/order-number.module';
 import { LoadingSpinnerModule } from '../loading-spinner/loading-spinner.module';
+import { MatSortModule } from '@angular/material/sort';
 
 const MaterialModules = [
   MatTableModule,
@@ -17,6 +18,7 @@ const MaterialModules = [
   MatButtonModule,
   MatIconModule,
   MatTooltipModule,
+  MatSortModule,
 ];
 
 @NgModule({

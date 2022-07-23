@@ -1,18 +1,19 @@
 <h2>News Category | Home > News Category</h2>
 <div *ngIf="categories$ | async as categories">
-  <div class="flex mb-5">
-    <button type="button" color="primary" mat-raised-button>
-      Add New Category
-    </button>
+  <div class="flex">
+    <div class="my-auto">
+      <button type="button" color="primary" mat-raised-button>
+        Add New Category
+      </button>
+    </div>
 
     <div class="flex-auto"></div>
 
-    <input
-      matInput
-      [(ngModel)]="filter.q"
-      (ngModelChange)="onSearch()"
-      placeholder="Search"
-    />
+    <mat-form-field appearance="outline">
+      <mat-label>Search</mat-label>
+      <input matInput placeholder="Search" />
+      <!-- <mat-hint>Hint</mat-hint> -->
+    </mat-form-field>
   </div>
 
   <app-datatable

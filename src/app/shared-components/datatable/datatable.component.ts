@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
@@ -9,6 +10,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ActionType } from 'src/app/common/interface/table/EAction';
 import { IColumn } from 'src/app/common/interface/table/IColumn';
@@ -19,7 +21,7 @@ import { IColumn } from 'src/app/common/interface/table/IColumn';
   styleUrls: ['./datatable.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DatatableComponent implements OnInit, OnChanges {
+export class DatatableComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() columns!: IColumn[];
   @Input() dataSource: any[] | undefined | null = [];
   @Input() displayedColumns!: string[];
@@ -28,6 +30,7 @@ export class DatatableComponent implements OnInit, OnChanges {
 
   @ViewChild(MatTable) table!: MatTable<unknown>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   @Output() onActionTriggered: EventEmitter<{
     type: ActionType;
@@ -42,12 +45,17 @@ export class DatatableComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: any): void {
     this.data.data = this.dataSource ?? [];
-    console.log(this.data.data);
+    this.data.sort = this.sort;
   }
 
   ngOnInit(): void {
     if (this.actions.length > 0)
       this.displayedColumns = [...this.displayedColumns, 'action'];
+  }
+
+  ngAfterViewInit(): void {
+    // this.data.paginator = this.paginator;
+    this.data.sort = this.sort;
   }
 
   actionTriggered(type: ActionType, payload: any): void {

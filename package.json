@@ -8,8 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "generate": "node ./server/generate.mjs > ./server/database.json",
-    "server": "json-server --watch ./server/database.json",
-    "custom-server": "nodemon ./server/server.js"
+    "custom-server": "json-server --watch ./server/database.json",
+    "server": "nodemon ./server/server.js"
   },
   "private": true,
   "dependencies": {

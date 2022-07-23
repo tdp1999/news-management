@@ -23,7 +23,7 @@ export class CategoriesComponent implements OnInit {
 
   public actionType = ActionType;
   public categories$!: Observable<ICategory[]>;
-  public displayedColumn = ['#', 'name', 'create_at'];
+  public displayedColumn = ['#', 'title', 'createAt'];
   public columns: IColumn[] = [
     {
       columnDef: '#',
@@ -31,14 +31,16 @@ export class CategoriesComponent implements OnInit {
       cell: (element: any) => '0',
     },
     {
-      columnDef: 'name',
-      header: 'Name',
-      cell: (element: any) => `${element.name}`,
+      columnDef: 'title',
+      header: 'Title',
+      cell: (element: any) => `${element.title}`,
+      isSortable: true,
     },
     {
-      columnDef: 'create_at',
+      columnDef: 'createAt',
       header: 'Created At',
-      cell: (element: any) => `${element.create_at}`,
+      cell: (element: any) => `${element.createAt}`,
+      isSortable: true,
     },
   ];
 

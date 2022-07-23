@@ -1,12 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'orderNumber'
+  name: 'orderNumber',
 })
 export class OrderNumberPipe implements PipeTransform {
-
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return null;
+  transform(
+    rowIndex: string | number,
+    pageIndex: string | number,
+    pageSize: string | number
+  ): unknown {
+    return +rowIndex + 1 + +pageSize * +pageIndex;
   }
-
 }
