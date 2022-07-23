@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderModule } from './layout/header/header.module';
 import { FooterModule } from './layout/footer/footer.module';
+import { HttpClientModule } from '@angular/common/http';
 
 // Shared Component
 const sharedComponents = [HeaderModule, FooterModule];
@@ -16,6 +17,7 @@ const sharedComponents = [HeaderModule, FooterModule];
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     ...sharedComponents,
   ],
   providers: [],
