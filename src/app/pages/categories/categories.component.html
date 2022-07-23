@@ -1,5 +1,5 @@
 <h2>News Category | Home > News Category</h2>
-<div *ngIf="categories$ | async as categories">
+<div>
   <div class="flex">
     <div class="my-auto">
       <button
@@ -25,7 +25,7 @@
   <app-datatable
     [columns]="columns"
     [totalItems]="totalItems"
-    [dataSource]="categories"
+    [dataSource]="categories$ | async"
     [displayedColumns]="displayedColumn"
     [actions]="[actionType.EDIT, actionType.DELETE]"
     (onActionTriggered)="onActionTriggered($event)"

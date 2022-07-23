@@ -17,7 +17,9 @@ import {
   debounceTime,
   distinctUntilChanged,
   filter,
+  catchError,
   map,
+  startWith,
   switchMap,
 } from 'rxjs/operators';
 import { PageEvent } from '@angular/material/paginator';
@@ -80,9 +82,14 @@ export class CategoriesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.categories$ = this.categorySubject$.asObservable().pipe(
       switchMap(() => {
         return this._categoryService.getCategoryList(this.filter).pipe(
+          startWith(undefined),
           map((data: any) => {
-            this.totalItems = data.paginations._totalRow;
-            return data.data;
+            if (data) {
+              this.totalItems = data.paginations._totalRow;
+              return data.data;
+            }
+
+            return undefined;
           })
         );
       })
@@ -207,9 +214,5 @@ export class CategoriesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filter._page = event.pageIndex + 1;
     this.filter._limit = event.pageSize;
     this.categorySubject$.next(true);
-  }
-
-  onSearch() {
-    console.log(this.filter.q);
   }
 }
