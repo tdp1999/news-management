@@ -11,8 +11,8 @@ server.use(jsonServer.bodyParser);
 // Add ID and timestamp to all POST requests
 server.use((req, res, next) => {
   if (req.method === "POST") {
-    req.body.id = Date.now();
-    req.body.createAt = Date.now();
+    req.body.id = Date.now().toString();
+    req.body.createAt = new Date().toISOString();
   }
   // Continue to JSON Server router
   next();

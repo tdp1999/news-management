@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 
-var database = { news: [], category: [] };
+var database = { item: [], category: [] };
 var status = ["published", "draft"];
 
 for (var i = 1; i <= 10; i++) {
@@ -15,9 +15,12 @@ for (var i = 1; i <= 10; i++) {
 }
 
 for (var i = 1; i <= 10; i++) {
-  database.news.push({
+  let title = faker.lorem.sentence();
+  let slug = faker.helpers.slugify(title);
+  database.item.push({
     id: faker.database.mongodbObjectId(),
-    title: faker.lorem.sentence(),
+    title: title,
+    slug: slug,
     status: faker.helpers.arrayElement(status),
     content: faker.lorem.paragraphs(5),
     date: faker.date.between(
