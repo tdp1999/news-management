@@ -28,6 +28,7 @@ import { AddCategoryDialogComponent } from './add-category-dialog/add-category-d
 import { ConfirmDialogComponent } from 'src/app/shared-components/confirm-dialog/confirm-dialog.component';
 import { FormControl } from '@angular/forms';
 import { Sort } from '@angular/material/sort';
+import { IBreadcrumb } from 'src/app/common/interface/IBreadcrumb';
 
 @Component({
   selector: 'app-categories',
@@ -39,6 +40,17 @@ export class CategoriesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public actionType = ActionType;
   public categories$!: Observable<ICategory[]>;
+
+  public breadcrumbItems: IBreadcrumb[] = [
+    {
+      label: 'Home',
+      url: '/',
+    },
+    {
+      label: 'Category',
+      url: '',
+    },
+  ];
 
   public displayedColumn = ['#', 'title', 'createAt'];
   public columns: IColumn[] = [

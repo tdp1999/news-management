@@ -4,7 +4,7 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActionType } from 'src/app/common/interface/table/EAction';
 
@@ -41,14 +41,14 @@ export class AddCategoryDialogComponent implements OnInit {
       case ActionType.CREATE:
         this.submitText = 'Add';
         this.form = this._fb.group({
-          title: [''],
+          title: ['', [Validators.required]],
         });
         break;
       case ActionType.EDIT:
         this.submitText = 'Save';
         this.form = this._fb.group({
           id: [this.data.payload.id],
-          title: [this.data.payload.title],
+          title: [this.data.payload.title, [Validators.required]],
           createAt: [this.data.payload.createAt],
         });
         break;

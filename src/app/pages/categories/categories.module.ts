@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { BreadcrumbModule } from 'src/app/shared-components/breadcrumb/breadcrumb.module';
 
 const MaterialModules = [
   MatButtonModule,
@@ -33,6 +34,7 @@ const MaterialModules = [
     ReactiveFormsModule,
     DatatableModule,
     ConfirmDialogModule,
+    BreadcrumbModule,
     ...MaterialModules,
   ],
 })

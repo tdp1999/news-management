@@ -13,7 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-
+import { BreadcrumbModule } from 'src/app/shared-components/breadcrumb/breadcrumb.module';
 const routes: Routes = [{ path: '', component: ItemsComponent }];
 
 // Material Modules
@@ -36,6 +36,7 @@ const MaterialModules = [
     ReactiveFormsModule,
     DatatableModule,
     ConfirmDialogModule,
+    BreadcrumbModule,
     ...MaterialModules,
   ],
 })

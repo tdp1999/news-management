@@ -16,6 +16,7 @@ import {
   distinctUntilChanged,
 } from 'rxjs/operators';
 import { NEWS_STATUS } from 'src/app/common/constant/news-status';
+import { IBreadcrumb } from 'src/app/common/interface/IBreadcrumb';
 import { IItem } from 'src/app/common/interface/IItem';
 import { IListFilter, INewsFilter } from 'src/app/common/interface/IListFilter';
 import { ActionType } from 'src/app/common/interface/table/EAction';
@@ -34,6 +35,17 @@ export class ItemsComponent implements OnInit, AfterViewInit, OnDestroy {
   public actionType = ActionType;
   public newStatus = NEWS_STATUS;
   public items$!: Observable<IItem[]>;
+
+  public breadcrumbItems: IBreadcrumb[] = [
+    {
+      label: 'Home',
+      url: '/',
+    },
+    {
+      label: 'Items',
+      url: '',
+    },
+  ];
 
   public displayedColumn = ['#', 'title', 'status', 'createAt'];
   public columns: IColumn[] = [

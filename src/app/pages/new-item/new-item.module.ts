@@ -14,6 +14,7 @@ import { LoadingSpinnerModule } from 'src/app/shared-components/loading-spinner/
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BreadcrumbModule } from 'src/app/shared-components/breadcrumb/breadcrumb.module';
 
 const routes: Routes = [{ path: '', component: NewItemComponent }];
 
@@ -38,6 +39,7 @@ const MaterialModules = [
     ReactiveFormsModule,
     LoadingSpinnerModule,
     EditorModule,
+    BreadcrumbModule,
     ...MaterialModules,
   ],
 })

@@ -7,6 +7,10 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () =>
       import('./pages/home/home.module').then((m) => m.HomeModule),
+    data: {
+      title: 'Home',
+      breadcrumb: 'Home',
+    },
   },
   {
     path: 'categories',
@@ -14,6 +18,10 @@ const routes: Routes = [
       import('./pages/categories/categories.module').then(
         (m) => m.CategoriesModule
       ),
+    data: {
+      title: 'Categories',
+      breadcrumb: 'Categories',
+    },
   },
   {
     path: 'items',
@@ -22,6 +30,10 @@ const routes: Routes = [
         path: '',
         loadChildren: () =>
           import('./pages/items/items.module').then((m) => m.ItemsModule),
+        data: {
+          title: 'News List',
+          breadcrumb: 'News List',
+        },
       },
       {
         path: 'create',
@@ -29,6 +41,10 @@ const routes: Routes = [
           import('./pages/new-item/new-item.module').then(
             (m) => m.NewItemModule
           ),
+        data: {
+          title: 'Create News',
+          breadcrumb: 'Create News',
+        },
       },
       {
         path: ':id/edit',
@@ -36,6 +52,10 @@ const routes: Routes = [
           import('./pages/new-item/new-item.module').then(
             (m) => m.NewItemModule
           ),
+        data: {
+          title: 'Edit News',
+          breadcrumb: 'Edit News',
+        },
       },
     ],
   },

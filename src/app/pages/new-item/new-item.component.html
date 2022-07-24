@@ -1,8 +1,8 @@
-<form *ngIf="form" [formGroup]="form" (ngSubmit)="submitForm()">
-  <div class="flex">
-    <h1>{{ title }}</h1>
+<form *ngIf="form" [formGroup]="form" (ngSubmit)="submitForm()" class="">
+  <div class="flex mb-3">
+    <app-breadcrumb [breadcrumbItems]="breadcrumbItems"></app-breadcrumb>
     <div class="flex-auto"></div>
-    <div>
+    <div class="space-x-3">
       <button
         [disabled]="form.invalid || onSubmit"
         type="submit"
@@ -20,7 +20,7 @@
   <div class="relative">
     <mat-form-field appearance="outline" class="w-full">
       <mat-label>Title</mat-label>
-      <input formControlName="title" matInput />
+      <input title="title" formControlName="title" matInput />
       <mat-error *ngIf="f['name']">Error has occur</mat-error>
     </mat-form-field>
 
@@ -55,7 +55,12 @@
     <div class="flex">
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>Choose a date</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="date" />
+        <input
+          title="date"
+          matInput
+          [matDatepicker]="picker"
+          formControlName="date"
+        />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>

@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { NEWS_STATUS } from 'src/app/common/constant/news-status';
+import { IBreadcrumb } from 'src/app/common/interface/IBreadcrumb';
 import { ICategory } from 'src/app/common/interface/ICategory';
 import { IItem } from 'src/app/common/interface/IItem';
 import { CategoryApiService } from 'src/app/common/service/category-api.service';
@@ -26,6 +27,20 @@ export class NewItemComponent implements OnInit, OnDestroy {
   public newStatus = NEWS_STATUS;
 
   public title = 'Add News';
+  public breadcrumbItems: IBreadcrumb[] = [
+    {
+      label: 'Home',
+      url: '/',
+    },
+    {
+      label: 'Items',
+      url: '/items',
+    },
+    {
+      label: 'Item Details',
+      url: '',
+    },
+  ];
 
   public isEdit = false;
   public isEditorLoading = false;
