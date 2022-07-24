@@ -8,7 +8,7 @@
   <ol class="flex">
     <li
       *ngFor="let breadcrumb of breadcrumbItems; let last = last"
-      class="flex items-center text-xl leading-8 text-blue-700"
+      class="flex items-center text-xl leading-8 text-blue-500"
       [ngClass]="{ active: last }"
     >
       <a [routerLink]="last ? null : breadcrumb.url">{{ breadcrumb.label }}</a>
