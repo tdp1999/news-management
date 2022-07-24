@@ -1,7 +1,7 @@
 <!-- <h2>News | Home > News</h2> -->
 <app-breadcrumb [breadcrumbItems]="breadcrumbItems"></app-breadcrumb>
 <div>
-  <div class="flex">
+  <div class="flex flex-col items-center mt-3 lg:flex-row md:mt-0">
     <div class="my-auto">
       <button
         title="Add category"
@@ -16,7 +16,9 @@
 
     <div class="flex-auto"></div>
 
-    <div class="space-x-3">
+    <div
+      class="flex flex-col w-full mt-3 space-y-1 md:w-auto lg:mt-0 md:space-y-0 md:space-x-3 md:flex-row"
+    >
       <!-- Status -->
       <mat-form-field appearance="outline">
         <mat-label>Status</mat-label>

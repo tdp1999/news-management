@@ -1,9 +1,13 @@
-<nav aria-label="breadcrumb" *ngIf="breadcrumbItems" class="flex space-x-3">
+<nav
+  aria-label="breadcrumb"
+  *ngIf="breadcrumbItems"
+  class="flex flex-col space-y-0.5 md:space-y-0 md:space-x-3 md:flex-row"
+>
   <h1 class="font-bold uppercase">
     {{ breadcrumbItems[breadcrumbItems.length - 1].label }}
   </h1>
 
-  <div class="border-r border-gray-300"></div>
+  <div class="border-b border-gray-300 md:border-r"></div>
 
   <ol class="flex">
     <li

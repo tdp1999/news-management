@@ -38,7 +38,10 @@
 
       <!-- Line Clamp -->
       <ng-container
-        *ngIf="['content'].indexOf(column.columnDef) >= 0; else normalColumn"
+        *ngIf="
+          ['content', 'title'].indexOf(column.columnDef) >= 0;
+          else normalColumn
+        "
       >
         <td mat-cell *matCellDef="let row" class="max-w-xs">
           <div class="pr-3 line-clamp-1">

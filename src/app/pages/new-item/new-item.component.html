@@ -1,8 +1,8 @@
 <form *ngIf="form" [formGroup]="form" (ngSubmit)="submitForm()" class="">
-  <div class="flex mb-3">
+  <div class="flex flex-col mb-3 md:flex-row">
     <app-breadcrumb [breadcrumbItems]="breadcrumbItems"></app-breadcrumb>
     <div class="flex-auto"></div>
-    <div class="space-x-3">
+    <div class="mt-3 space-x-3 md:mt-0">
       <button
         [disabled]="form.invalid || onSubmit"
         type="submit"
@@ -24,7 +24,7 @@
       <mat-error *ngIf="f['name']">Error has occur</mat-error>
     </mat-form-field>
 
-    <div class="flex">
+    <div class="flex flex-col md:flex-row">
       <mat-form-field
         appearance="outline"
         class="w-full mr-5"
@@ -46,8 +46,6 @@
           <mat-option *ngFor="let status of newStatus" [value]="status.value">
             {{ status.label }}
           </mat-option>
-          <!-- <mat-option value="draft">Draft</mat-option>
-          <mat-option value="published">Published</mat-option> -->
         </mat-select>
       </mat-form-field>
     </div>
