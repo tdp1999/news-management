@@ -42,7 +42,7 @@ router.render = (req, res) => {
 
 // Add delay to simulate network latency
 server.use((req, res, next) => {
-  setTimeout(next, 500);
+  setTimeout(next, 350);
 });
 
 server.use(router);

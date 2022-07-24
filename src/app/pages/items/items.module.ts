@@ -9,6 +9,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DatatableModule } from 'src/app/shared-components/datatable/datatable.module';
 import { ConfirmDialogModule } from 'src/app/shared-components/confirm-dialog/confirm-dialog.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [{ path: '', component: ItemsComponent }];
 
@@ -18,6 +22,10 @@ const MaterialModules = [
   MatFormFieldModule,
   MatInputModule,
   MatSnackBarModule,
+  MatSelectModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatIconModule,
 ];
 
 @NgModule({

@@ -5,3 +5,9 @@ export interface IListFilter {
   _order?: string;
   q?: string;
 }
+
+export interface INewsFilter extends IListFilter {
+  status?: string;
+  createAt_gte?: string;
+  createAt_lte?: string;
+}

@@ -9,6 +9,7 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { NEWS_STATUS } from 'src/app/common/constant/news-status';
 import { ICategory } from 'src/app/common/interface/ICategory';
 import { IItem } from 'src/app/common/interface/IItem';
 import { CategoryApiService } from 'src/app/common/service/category-api.service';
@@ -22,6 +23,7 @@ import { ItemApiService } from 'src/app/common/service/item-api.service';
 export class NewItemComponent implements OnInit, OnDestroy {
   public form!: FormGroup;
   public categories$!: Observable<ICategory[]>;
+  public newStatus = NEWS_STATUS;
 
   public title = 'Add News';
 

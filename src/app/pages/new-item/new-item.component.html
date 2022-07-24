@@ -43,8 +43,11 @@
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>Status</mat-label>
         <mat-select formControlName="status">
-          <mat-option value="draft">Draft</mat-option>
-          <mat-option value="published">Published</mat-option>
+          <mat-option *ngFor="let status of newStatus" [value]="status.value">
+            {{ status.label }}
+          </mat-option>
+          <!-- <mat-option value="draft">Draft</mat-option>
+          <mat-option value="published">Published</mat-option> -->
         </mat-select>
       </mat-form-field>
     </div>

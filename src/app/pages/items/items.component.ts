@@ -1,14 +1,23 @@
+import { DatePipe } from '@angular/common';
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { BehaviorSubject, of, Observable, Subscription } from 'rxjs';
-import { filter, switchMap, startWith, map } from 'rxjs/operators';
+import {
+  filter,
+  switchMap,
+  startWith,
+  map,
+  debounceTime,
+  distinctUntilChanged,
+} from 'rxjs/operators';
+import { NEWS_STATUS } from 'src/app/common/constant/news-status';
 import { IItem } from 'src/app/common/interface/IItem';
-import { IListFilter } from 'src/app/common/interface/IListFilter';
+import { IListFilter, INewsFilter } from 'src/app/common/interface/IListFilter';
 import { ActionType } from 'src/app/common/interface/table/EAction';
 import { IColumn } from 'src/app/common/interface/table/IColumn';
 import { ItemApiService } from 'src/app/common/service/item-api.service';
@@ -18,10 +27,12 @@ import { ConfirmDialogComponent } from 'src/app/shared-components/confirm-dialog
   selector: 'app-items',
   templateUrl: './items.component.html',
   styleUrls: ['./items.component.scss'],
+  providers: [DatePipe],
 })
 export class ItemsComponent implements OnInit, AfterViewInit, OnDestroy {
   // @ViewChild('search') search!: ElementRef;
   public actionType = ActionType;
+  public newStatus = NEWS_STATUS;
   public items$!: Observable<IItem[]>;
 
   public displayedColumn = ['#', 'title', 'status', 'createAt'];
@@ -51,7 +62,7 @@ export class ItemsComponent implements OnInit, AfterViewInit, OnDestroy {
     },
   ];
   public totalItems = 0;
-  public filter: IListFilter = {
+  public filter: INewsFilter = {
     _page: 1,
     _sort: 'createAt',
     _order: 'desc',
@@ -59,7 +70,15 @@ export class ItemsComponent implements OnInit, AfterViewInit, OnDestroy {
   };
 
   public itemSubject$ = new BehaviorSubject<boolean>(true);
+
+  public statusFilterControl = new FormControl();
   public searchControl = new FormControl();
+  public dateFilterControl = new FormGroup({
+    startDate: new FormControl(),
+    endDate: new FormControl(),
+  });
+
+  public isDateFilterActive = false;
 
   private _subscription: Subscription = new Subscription();
 
@@ -67,7 +86,8 @@ export class ItemsComponent implements OnInit, AfterViewInit, OnDestroy {
     private _itemService: ItemApiService,
     private _snackbar: MatSnackBar,
     private _dialog: MatDialog,
-    private _router: Router
+    private _router: Router,
+    private _datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -85,6 +105,48 @@ export class ItemsComponent implements OnInit, AfterViewInit, OnDestroy {
           })
         );
       })
+    );
+
+    // Filter and search
+    this._subscription.add(
+      this.searchControl.valueChanges
+        .pipe(
+          // startWith(''),
+          // filter((q) => q.length > 1 || q.length === 0),
+          debounceTime(500),
+          distinctUntilChanged()
+        )
+        .subscribe((value) => {
+          this.filter.q = value;
+          this.itemSubject$.next(true);
+        })
+    );
+
+    this._subscription.add(
+      this.statusFilterControl.valueChanges.subscribe((value) => {
+        if (!value) {
+          delete this.filter.status;
+        } else this.filter.status = value;
+        this.itemSubject$.next(true);
+      })
+    );
+
+    this._subscription.add(
+      this.dateFilterControl.valueChanges
+        .pipe(
+          filter((value) => value.endDate !== null && value.startDate !== null)
+        )
+        .subscribe((value) => {
+          this.isDateFilterActive = true;
+          let startDate = this._datePipe.transform(
+            value.startDate,
+            'yyyy-MM-dd'
+          );
+          let endDate = this._datePipe.transform(value.endDate, 'yyyy-MM-dd');
+          this.filter.createAt_gte = startDate || '';
+          this.filter.createAt_lte = endDate || '';
+          this.itemSubject$.next(true);
+        })
     );
   }
 
@@ -153,6 +215,14 @@ export class ItemsComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log(event);
     this.filter._sort = event.active;
     this.filter._order = event.direction;
+    this.itemSubject$.next(true);
+  }
+
+  clearDate() {
+    this.dateFilterControl.reset();
+    delete this.filter.createAt_gte;
+    delete this.filter.createAt_lte;
+    this.isDateFilterActive = false;
     this.itemSubject$.next(true);
   }
 }

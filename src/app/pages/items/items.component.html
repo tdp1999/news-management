@@ -16,9 +16,56 @@
     <div class="flex-auto"></div>
 
     <div>
+      <!-- Status -->
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select [formControl]="statusFilterControl" placeholder="Status">
+          <!-- No option -->
+          <mat-option [value]="null">All</mat-option>
+          <mat-option *ngFor="let status of newStatus" [value]="status.value">
+            {{ status.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Date Range -->
+      <mat-form-field appearance="outline">
+        <mat-label>Date Range</mat-label>
+        <mat-date-range-input
+          [formGroup]="dateFilterControl"
+          [rangePicker]="picker"
+        >
+          <input
+            matInput
+            matStartDate
+            formControlName="startDate"
+            placeholder="Start date"
+          />
+          <input
+            matEndDate
+            matInput
+            formControlName="endDate"
+            placeholder="End date"
+          />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker-toggle
+          *ngIf="isDateFilterActive"
+          matSuffix
+          (click)="clearDate()"
+        >
+          <mat-icon matDatepickerToggleIcon>clear</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+      <!-- Search -->
       <mat-form-field appearance="outline">
         <mat-label>Search</mat-label>
-        <input matInput placeholder="Search" [formControl]="searchControl" />
+        <input
+          matInput
+          placeholder="Title, Content, Date, ..."
+          [formControl]="searchControl"
+        />
       </mat-form-field>
     </div>
   </div>
