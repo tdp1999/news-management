@@ -1,9 +1,16 @@
-<form [formGroup]="form" (ngSubmit)="submitForm()">
+<form *ngIf="form" [formGroup]="form" (ngSubmit)="submitForm()">
   <div class="flex">
-    <h1>Create / Edit News</h1>
+    <h1>{{ title }}</h1>
     <div class="flex-auto"></div>
     <div>
-      <button type="submit" mat-raised-button color="primary">Save</button>
+      <button
+        [disabled]="form.invalid || onSubmit"
+        type="submit"
+        mat-raised-button
+        color="primary"
+      >
+        Save
+      </button>
       <a [routerLink]="['/items']" type="button" mat-raised-button color="basic"
         >Back to List</a
       >
@@ -64,7 +71,7 @@
       formControlName="content"
       apiKey="n6uchik9lzofpnvapnob6kyk3m43qhiafaad5cxh4rkg4ee3"
       [init]="{
-        height: 500,
+        height: 250,
         menubar: false,
         plugins: [
           'codesample',
@@ -93,9 +100,5 @@
         ]
       }"
     ></editor>
-  </div>
-  <div>
-    <button type="submit" mat-button [disabled]="!form.valid">Save</button>
-    <button type="button" mat-button>Cancel</button>
   </div>
 </form>

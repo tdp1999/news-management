@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -7,7 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 import { ICategory } from 'src/app/common/interface/ICategory';
 import { IItem } from 'src/app/common/interface/IItem';
 import { CategoryApiService } from 'src/app/common/service/category-api.service';
@@ -18,22 +19,48 @@ import { ItemApiService } from 'src/app/common/service/item-api.service';
   templateUrl: './new-item.component.html',
   styleUrls: ['./new-item.component.scss'],
 })
-export class NewItemComponent implements OnInit {
+export class NewItemComponent implements OnInit, OnDestroy {
   public form!: FormGroup;
   public categories$!: Observable<ICategory[]>;
+
+  public title = 'Add News';
+
+  public isEdit = false;
   public isEditorLoading = false;
+  public onSubmit = false;
+
+  private _subscription = new Subscription();
 
   constructor(
     private _fb: FormBuilder,
     private _categoryService: CategoryApiService,
     private _itemService: ItemApiService,
-    private _snackbar: MatSnackBar
+    private _snackbar: MatSnackBar,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.generateForm();
     this.getCategoryList();
     this.isEditorLoading = true;
+
+    this._subscription.add(
+      this._activatedRoute.params.subscribe((params) => {
+        if (params['id']) {
+          this._itemService.retrieveItem(params['id']).subscribe((res) => {
+            this.title = 'Edit News';
+            this.isEdit = true;
+            this.generateForm(res);
+          });
+        } else {
+          this.generateForm();
+        }
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
   }
 
   // Get Category List
@@ -61,6 +88,7 @@ export class NewItemComponent implements OnInit {
     if (editValue) {
       this.form.addControl('id', this._fb.control(editValue.id));
       this.form.addControl('slug', this._fb.control(editValue.slug));
+      this.form.addControl('createAt', this._fb.control(editValue.createAt));
       let slugControl = this.form.get('slug') as FormControl;
       slugControl?.disable();
       slugControl?.removeAsyncValidators;
@@ -68,17 +96,37 @@ export class NewItemComponent implements OnInit {
   }
 
   submitForm() {
+    this.onSubmit = true;
+
+    if (this.form.invalid) {
+      this.onSubmit = false;
+      return;
+    }
+    this.isEdit ? this.updateNews() : this.addNews();
+  }
+
+  addNews() {
     this._itemService.addItem(this.form.value).subscribe(
-      (res) => {
-        this._snackbar.open('Add Item Success', 'Close', {
+      (res: any) => {
+        this._snackbar.open('Add Item Success', 'Close', { duration: 2000 });
+        this._router.navigate(['/items']);
+      },
+      (err: any) => {
+        this._snackbar.open('Add Item Failed', 'Close', {
           duration: 2000,
         });
-        // this._router.navigate(['/items']);
       },
-      (err) => {
-        this._snackbar.open('Add Item Failed', 'Close');
-      }
+      () => {}
     );
-    console.log(this.form.value);
+  }
+
+  updateNews() {
+    this._itemService.updateItem(this.form.value).subscribe((res) => {
+      this._snackbar.open('Update Successfully', '', {
+        duration: 2000,
+      });
+      this._router.navigate(['/items']);
+      return;
+    });
   }
 }

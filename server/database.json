@@ -331,16 +331,6 @@
       "createAt": "2021-04-18T10:18:43.992Z"
     },
     {
-      "id": "154f4eec2fa0aa5c6cc67899",
-      "title": "Quidem aspernatur rem eum quaerat inventore sed quisquam.",
-      "slug": "Quidem-aspernatur-rem-eum-quaerat-inventore-sed-quisquam.",
-      "status": "published",
-      "content": "Officia tempore qui sit exercitationem. Consequatur tempora ex aspernatur quis. Laboriosam est eveniet ipsa. Eos autem ea id libero reiciendis accusamus.\nExplicabo sapiente voluptas adipisci. Provident et aspernatur sunt dolorum saepe dolorem et. Magni ratione delectus modi corrupti totam deserunt est quae qui. Voluptas maxime dicta nulla eveniet quam sequi aut aut magnam. Et alias et suscipit eos veniam tenetur.\nQuasi libero velit iusto dicta et sed reprehenderit nulla. A pariatur vitae qui expedita. Ducimus et et commodi sed aperiam. Ab laborum dolores velit molestias rem est occaecati. Numquam eius porro voluptatem nihil nihil dolorem.\nLaborum illum id dolorem commodi. A laborum architecto. Qui quidem rerum sed impedit cumque. Dolores vel libero rerum ducimus illo.\nLaudantium et quos et. Mollitia eum dolor debitis. Iusto et veniam voluptatum maiores id aliquam dolores est. Aut fugiat reprehenderit quae. Et aut exercitationem exercitationem aliquid et. Ipsa labore illum exercitationem est.",
-      "date": "2025-07-11T11:02:34.923Z",
-      "categoryId": "9aac283b4f52e5bbed87edb8",
-      "createAt": "2022-07-07T11:59:58.317Z"
-    },
-    {
       "id": "fdf56887f22d5e86ae8c828e",
       "title": "Ullam aliquid vel minus.",
       "slug": "Ullam-aliquid-vel-minus.",
@@ -371,13 +361,13 @@
       "createAt": "2022-06-05T16:54:31.960Z"
     },
     {
-      "title": "new",
+      "title": "new newws",
       "categoryId": "9aac283b4f52e5bbed87edb8",
       "status": "published",
-      "content": "<p>abc</p>",
-      "date": "2022-07-04T17:00:00.000Z",
-      "id": "1658633230080",
-      "createAt": "2022-07-24T03:27:10.080Z"
+      "content": "",
+      "date": "",
+      "id": "1658634065331",
+      "createAt": "2022-07-24T03:41:05.331Z"
     }
   ],
   "category": [
