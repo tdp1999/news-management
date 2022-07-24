@@ -1,1 +1,36 @@
-<p>items works!</p>
+<h2>News | Home > News</h2>
+<div>
+  <div class="flex">
+    <div class="my-auto">
+      <button
+        title="Add category"
+        type="button"
+        color="primary"
+        mat-raised-button
+        (click)="onActionTriggered({ type: actionType.CREATE, payload: null })"
+      >
+        Add New News
+      </button>
+    </div>
+
+    <div class="flex-auto"></div>
+
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="Search" [formControl]="searchControl" />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <app-datatable
+    [columns]="columns"
+    [totalItems]="totalItems"
+    [dataSource]="items$ | async"
+    [displayedColumns]="displayedColumn"
+    [actions]="[actionType.EDIT, actionType.DELETE]"
+    (onActionTriggered)="onActionTriggered($event)"
+    (onPaginationChange)="onPaginationChange($event)"
+    (onSortChange)="onSortChange($event)"
+  ></app-datatable>
+</div>

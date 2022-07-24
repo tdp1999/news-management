@@ -27,6 +27,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddCategoryDialogComponent } from './add-category-dialog/add-category-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/shared-components/confirm-dialog/confirm-dialog.component';
 import { FormControl } from '@angular/forms';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-categories',
@@ -35,15 +36,10 @@ import { FormControl } from '@angular/forms';
 })
 export class CategoriesComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('search') search!: ElementRef;
-  public filter: IListFilter = {
-    _page: 1,
-    _sort: 'createAt',
-    _order: 'desc',
-    q: '',
-  };
 
   public actionType = ActionType;
   public categories$!: Observable<ICategory[]>;
+
   public displayedColumn = ['#', 'title', 'createAt'];
   public columns: IColumn[] = [
     {
@@ -64,8 +60,14 @@ export class CategoriesComponent implements OnInit, AfterViewInit, OnDestroy {
       isSortable: true,
     },
   ];
+  public totalItems = 0;
+  public filter: IListFilter = {
+    _page: 1,
+    _sort: 'createAt',
+    _order: 'desc',
+    q: '',
+  };
 
-  public totalItems: number = 0;
   public categorySubject$ = new BehaviorSubject<boolean>(true);
   public searchControl = new FormControl();
 
@@ -213,6 +215,12 @@ export class CategoriesComponent implements OnInit, AfterViewInit, OnDestroy {
   onPaginationChange(event: PageEvent): void {
     this.filter._page = event.pageIndex + 1;
     this.filter._limit = event.pageSize;
+    this.categorySubject$.next(true);
+  }
+
+  onSortChange(event: Sort): void {
+    this.filter._sort = event.active;
+    this.filter._order = event.direction;
     this.categorySubject$.next(true);
   }
 }

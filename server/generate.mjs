@@ -14,7 +14,7 @@ for (var i = 1; i <= 10; i++) {
   });
 }
 
-for (var i = 1; i <= 10; i++) {
+for (var i = 1; i <= 37; i++) {
   let title = faker.lorem.sentence();
   let slug = faker.helpers.slugify(title);
   database.item.push({
@@ -28,6 +28,10 @@ for (var i = 1; i <= 10; i++) {
       "2030-01-01T00:00:00.000Z"
     ),
     categoryId: faker.helpers.arrayElement(database.category).id,
+    createAt: faker.date.between(
+      "2020-01-01T00:00:00.000Z",
+      new Date().toISOString()
+    ),
   });
 }
 

@@ -17,8 +17,27 @@ const routes: Routes = [
   },
   {
     path: 'items',
-    loadChildren: () =>
-      import('./pages/items/items.module').then((m) => m.ItemsModule),
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/items/items.module').then((m) => m.ItemsModule),
+      },
+      {
+        path: 'create',
+        loadChildren: () =>
+          import('./pages/new-item/new-item.module').then(
+            (m) => m.NewItemModule
+          ),
+      },
+      {
+        path: ':id/edit',
+        loadChildren: () =>
+          import('./pages/new-item/new-item.module').then(
+            (m) => m.NewItemModule
+          ),
+      },
+    ],
   },
   {
     path: '**',

@@ -7,13 +7,18 @@
     matSort
     [dataSource]="data"
     class="w-full"
+    (matSortChange)="sortData($event)"
   >
     <ng-container
       *ngFor="let column of columns"
       [matColumnDef]="column.columnDef"
     >
       <ng-container *ngIf="column.isSortable; else normalHeader">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          [mat-sort-header]="column.columnDef"
+        >
           {{ column.header }}
         </th>
       </ng-container>

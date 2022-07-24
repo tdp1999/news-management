@@ -1,0 +1,101 @@
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+  <div class="flex">
+    <h1>Create / Edit News</h1>
+    <div class="flex-auto"></div>
+    <div>
+      <button type="submit" mat-raised-button color="primary">Save</button>
+      <a [routerLink]="['/items']" type="button" mat-raised-button color="basic"
+        >Back to List</a
+      >
+    </div>
+  </div>
+
+  <div class="relative">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Title</mat-label>
+      <input formControlName="title" matInput />
+      <mat-error *ngIf="f['name']">Error has occur</mat-error>
+    </mat-form-field>
+
+    <div class="flex">
+      <mat-form-field
+        appearance="outline"
+        class="w-full mr-5"
+        *ngIf="categories$ | async as categories"
+      >
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="categoryId">
+          <mat-option
+            *ngFor="let category of categories"
+            [value]="category.id"
+            >{{ category.title }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="draft">Draft</mat-option>
+          <mat-option value="published">Published</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="flex">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <!-- 'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount codesample'
+                    'advlist lists link image charmap print preview anchor', -->
+
+    <ng-container *ngIf="isEditorLoading">
+      <app-loading-spinner></app-loading-spinner>
+    </ng-container>
+
+    <editor
+      (onInit)="isEditorLoading = false"
+      formControlName="content"
+      apiKey="n6uchik9lzofpnvapnob6kyk3m43qhiafaad5cxh4rkg4ee3"
+      [init]="{
+        height: 500,
+        menubar: false,
+        plugins: [
+          'codesample',
+          'autolink',
+          'lists',
+          'link',
+          'image',
+          'charmap',
+          'preview',
+          'anchor',
+          'code'
+        ],
+        toolbar:
+          'formatselect | bold italic backcolor | \
+                                alignleft aligncenter alignright alignjustify | \
+                                bullist numlist outdent indent | removeformat | codesample print code',
+        codesample_languages: [
+          {
+            text: 'HTML/XML',
+            value: 'markup'
+          },
+          {
+            text: 'SCSS',
+            value: 'scss'
+          }
+        ]
+      }"
+    ></editor>
+  </div>
+  <div>
+    <button type="submit" mat-button [disabled]="!form.valid">Save</button>
+    <button type="button" mat-button>Cancel</button>
+  </div>
+</form>

@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -10,7 +11,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ActionType } from 'src/app/common/interface/table/EAction';
 import { IColumn } from 'src/app/common/interface/table/IColumn';
@@ -37,11 +38,12 @@ export class DatatableComponent implements OnInit, OnChanges, AfterViewInit {
     payload: string;
   }> = new EventEmitter();
   @Output() onPaginationChange: EventEmitter<PageEvent> = new EventEmitter();
+  @Output() onSortChange: EventEmitter<Sort> = new EventEmitter();
 
   public data: MatTableDataSource<any> = new MatTableDataSource();
   public actionType = ActionType;
 
-  constructor() {}
+  constructor(private _cdr: ChangeDetectorRef) {}
 
   ngOnChanges(changes: any): void {
     this.data.data = this.dataSource ?? [];
@@ -53,10 +55,7 @@ export class DatatableComponent implements OnInit, OnChanges, AfterViewInit {
       this.displayedColumns = [...this.displayedColumns, 'action'];
   }
 
-  ngAfterViewInit(): void {
-    // this.data.paginator = this.paginator;
-    this.data.sort = this.sort;
-  }
+  ngAfterViewInit(): void {}
 
   actionTriggered(type: ActionType, payload: any): void {
     this.onActionTriggered.emit({
@@ -67,5 +66,15 @@ export class DatatableComponent implements OnInit, OnChanges, AfterViewInit {
 
   pageChange(event: PageEvent) {
     this.onPaginationChange.emit(event);
+  }
+
+  sortData(event: Sort) {
+    // this.sort.active = event.active;
+    // this.sort.direction = event.direction;
+    // this.data.sort = this.sort;
+    // console.log(this.sort);
+    // console.log(this.data.sort);
+    // this._cdr.markForCheck();
+    this.onSortChange.emit(event);
   }
 }
